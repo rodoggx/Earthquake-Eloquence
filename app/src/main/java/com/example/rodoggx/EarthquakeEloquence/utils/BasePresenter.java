@@ -8,6 +8,6 @@ public interface BasePresenter<V extends BaseView> {
 
     void attachView(V v);
 
-    void detachView(V v);
+    void detachView();
 
 }

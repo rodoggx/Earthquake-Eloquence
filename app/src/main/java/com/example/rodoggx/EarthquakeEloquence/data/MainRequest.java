@@ -1,6 +1,6 @@
 package com.example.rodoggx.EarthquakeEloquence.data;
 
-import com.example.rodoggx.EarthquakeEloquence.model.Response;
+import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainRequest {
 
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "https://earthquake.usgs.gov";
 
     public static Retrofit create() {
     return new Retrofit.Builder()
@@ -23,7 +23,7 @@ public class MainRequest {
             .build();
     }
 
-    public static Call<List<Response>> getResponse() {
+    public static Call<List<Earthquake>> getResponse() {
 
         Retrofit retrofit = create();
         MainResponse mainResponse = retrofit.create(MainResponse.class);

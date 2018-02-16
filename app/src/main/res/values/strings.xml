@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Earthquake Eloquence</string>
+    <string name="get_earthquakes">Get Earthquakes!</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.rodoggx.quakereport;
+package com.example.rodoggx.EarthquakeEloquence.model;
 
 /**
  *
