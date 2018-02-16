@@ -27,7 +27,7 @@ public class MainRequest {
 
         Retrofit retrofit = create();
         MainResponse mainResponse = retrofit.create(MainResponse.class);
-        return mainResponse.getResponse();
+        return mainResponse.getResponse("geojson", "2014-01-01", "2014-01-02");
     }
 
 }
