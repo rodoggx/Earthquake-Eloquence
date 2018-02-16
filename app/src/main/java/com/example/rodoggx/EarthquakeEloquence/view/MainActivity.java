@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import dagger.internal.DaggerCollections;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
+    private static final String TAG = "TAG_";
     @Inject
     MainPresenter presenter;
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void showError(String s) {
+        Log.d(TAG, "showError: " + s);
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
