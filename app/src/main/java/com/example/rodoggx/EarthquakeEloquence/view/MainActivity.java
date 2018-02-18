@@ -12,6 +12,7 @@ import com.example.rodoggx.EarthquakeEloquence.R;
 import com.example.rodoggx.EarthquakeEloquence.di.DaggerMainComponent;
 import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Inject
     MainPresenter presenter;
 
+    private final LinkedList<Earthquake> earthquakeList = new LinkedList<>();
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private MainAdapter adapter;
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setupDaggerComponent();
         presenter.attachView(this);
         setupRecyclerView();
-
     }
 
     private void setupRecyclerView() {
@@ -48,8 +49,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void onEarthquakeReceived(List<Earthquake> earthquakeList) {
-        adapter = new MainAdapter(earthquakeList);
+    public void onEarthquakeReceived(Earthquake earthquake) {
+        for (int i = 0; i < earthquake.getFeatures().size(); i++) {
+            earthquakeList.add(i, earthquake);
+        }
+        adapter = new MainAdapter(earthquakeList, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

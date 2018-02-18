@@ -20,14 +20,14 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void getEarthquakes() {
-        MainRequest.getResponse().enqueue(new Callback<List<Earthquake>>() {
+        MainRequest.getResponse().enqueue(new Callback<Earthquake>() {
             @Override
-            public void onResponse(Call<List<Earthquake>> call, Response<List<Earthquake>> response) {
+            public void onResponse(Call<Earthquake> call, Response<Earthquake> response) {
                 view.onEarthquakeReceived(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Earthquake>> call, Throwable t) {
+            public void onFailure(Call<Earthquake> call, Throwable t) {
                 view.showError(t.toString());
             }
         });

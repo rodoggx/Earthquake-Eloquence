@@ -13,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.ContentValues.TAG;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by RodoggX on 2/13/2018.
@@ -29,7 +30,7 @@ public class MainRequest {
                 .build();
     }
 
-    public static Call<List<Earthquake>> getResponse() {
+    public static Call<Earthquake> getResponse() {
 
         Map<String, String> data = new HashMap<>();
         data.put("format", "geojson");

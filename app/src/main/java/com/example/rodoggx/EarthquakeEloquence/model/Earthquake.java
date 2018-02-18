@@ -1,48 +1,55 @@
+
 package com.example.rodoggx.EarthquakeEloquence.model;
 
-/**
- *
- */
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Earthquake {
 
-    private String location, url;
-    private double magnitude;
-    private long time;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("metadata")
+    @Expose
+    private Metadata metadata;
+    @SerializedName("features")
+    @Expose
+    private List<Feature> features = null;
+    @SerializedName("bbox")
+    @Expose
+    private List<Double> bbox = null;
 
-    public Earthquake(double magnitude, String location, long time, String url) {
-        this.magnitude = magnitude;
-        this.location = location;
-        this.time = time;
-        this.url = url;
+    public String getType() {
+        return type;
     }
 
-    public String getLocation() {
-        return location;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public Metadata getMetadata() {
+        return metadata;
     }
 
-    public double getMagnitude() {
-        return magnitude;
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
     }
 
-    public void setMagnitude(double magnitude) {
-        this.magnitude = magnitude;
+    public List<Feature> getFeatures() {
+        return features;
     }
 
-    public long getTime() {
-        return time;
+    public void setFeatures(List<Feature> features) {
+        this.features = features;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public List<Double> getBbox() {
+        return bbox;
     }
 
-    public String getUrl() {
-        return url;
+    public void setBbox(List<Double> bbox) {
+        this.bbox = bbox;
     }
+
 }
-

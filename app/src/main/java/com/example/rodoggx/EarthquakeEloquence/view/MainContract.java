@@ -13,7 +13,7 @@ import java.util.List;
 public interface MainContract {
 
     interface View extends BaseView {
-        void onEarthquakeReceived(List<Earthquake> earthquakeList);
+        void onEarthquakeReceived(Earthquake earthquakeList);
     }
 
     interface Presenter extends BasePresenter<View> {
