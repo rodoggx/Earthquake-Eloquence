@@ -44,13 +44,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
         Earthquake earthquakeItem = earthquakeList.get(position);
-        holder.locationTv.setText(earthquakeItem.getFeatures().get(position).getProperties().getPlace());
-        holder.magnitudeTv.setText(Double.toString(earthquakeItem.getFeatures().get(position).getProperties().getMag()));
+
+        String locationText = "Location: " +  earthquakeItem.getFeatures().get(position).getProperties().getPlace();
+        holder.locationTv.setText(locationText);
+
+        String magnitudeText = "Magnitude: " + Double.toString(earthquakeItem.getFeatures().get(position).getProperties().getMag());
+        holder.magnitudeTv.setText(magnitudeText);
 
         long seconds = earthquakeItem.getFeatures().get(position).getProperties().getTime();
         Date date = new Date(seconds);
         SimpleDateFormat myDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
-        String javaDate = myDate.format(date);
+        String javaDate = "Date: " + myDate.format(date);
         holder.dateTv.setText(javaDate);
     }
 

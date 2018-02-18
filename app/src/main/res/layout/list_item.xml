@@ -6,12 +6,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     >
 
-    <TextView
+     <TextView
         android:id="@+id/magnitudeTv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
         android:hint="7.2"
+        android:layout_gravity="left"
         />
 
     <TextView

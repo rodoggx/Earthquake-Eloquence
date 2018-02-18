@@ -34,8 +34,8 @@ public class MainRequest {
 
         Map<String, String> data = new HashMap<>();
         data.put("format", "geojson");
-        data.put("starttime", "2014-01-01");
-        data.put("endtime", "2014-01-02");
+        data.put("starttime", "2018-01-01");
+        data.put("endtime", "2018-01-02");
 
         Log.d(TAG, "getResponse: " + data.toString());
 
