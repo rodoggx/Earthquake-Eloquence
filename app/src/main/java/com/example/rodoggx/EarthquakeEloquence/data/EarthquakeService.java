@@ -15,6 +15,6 @@ import retrofit2.http.QueryMap;
 
 public interface EarthquakeService {
 
-    @GET("/fdsnws/event/1/query")
+    @GET("fdsnws/event/1/query")
     Call<Earthquake> getResponse(@QueryMap Map<String, String> earthquakeResponse);
 }

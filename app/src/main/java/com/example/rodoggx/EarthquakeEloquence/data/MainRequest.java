@@ -21,7 +21,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class MainRequest {
 
-    public static final String BASE_URL = "https://earthquake.usgs.gov";
+    public static final String BASE_URL = "https://earthquake.usgs.gov/";
 
     public static Retrofit create() {
         return new Retrofit.Builder()

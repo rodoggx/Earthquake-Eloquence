@@ -44,7 +44,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
         Earthquake earthquakeItem = earthquakeList.get(position);
-
         String locationText = "Location: " +  earthquakeItem.getFeatures().get(position).getProperties().getPlace();
         holder.locationTv.setText(locationText);
 

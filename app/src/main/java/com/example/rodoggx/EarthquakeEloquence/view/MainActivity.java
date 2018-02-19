@@ -37,11 +37,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setupDaggerComponent();
         presenter.attachView(this);
         setupRecyclerView();
+
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.activity_main, CardViewFragment.newInstance()).commit();
+        }
     }
 
     private void setupRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.rvEarthquakes);
         layoutManager = new LinearLayoutManager(this);
+        recyclerView = (RecyclerView) findViewById(R.id.rvEarthquakes);
     }
 
     private void setupDaggerComponent() {
