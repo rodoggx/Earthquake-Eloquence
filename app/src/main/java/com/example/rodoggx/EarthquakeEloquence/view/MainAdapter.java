@@ -13,8 +13,10 @@ import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 
 import static android.media.CamcorderProfile.get;
@@ -26,7 +28,6 @@ import static android.media.CamcorderProfile.get;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
     private static final String TAG = "MainAdapter_TAG_";
-    //    private Earthquake earthquake;
     private LinkedList<Earthquake> earthquakeList = new LinkedList<>();
     private LayoutInflater inflater;
 
@@ -77,5 +78,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             magnitudeTv = itemView.findViewById(R.id.magnitudeTv);
             dateTv = itemView.findViewById(R.id.dateTv);
         }
+    }
+
+    public void setFilter(LinkedList<Earthquake> newList) {
+        earthquakeList = new LinkedList<>();
+        earthquakeList.addAll(newList);
+
+        notifyDataSetChanged();
+
+//        adapter = new MainAdapter(earthquakeList, this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
     }
 }
