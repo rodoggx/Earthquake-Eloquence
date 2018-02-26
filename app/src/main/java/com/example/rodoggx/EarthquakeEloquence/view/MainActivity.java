@@ -21,6 +21,9 @@ import com.example.rodoggx.EarthquakeEloquence.R;
 import com.example.rodoggx.EarthquakeEloquence.di.DaggerMainComponent;
 import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Inject
     MainPresenter presenter;
 
-    private final LinkedList<Earthquake> earthquakeList = new LinkedList<>();
+    private final ArrayList<Earthquake> earthquakeList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private MainAdapter adapter;
@@ -86,9 +89,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void onEarthquakeReceived(Earthquake earthquake) {
-        for (int i = 0; i < earthquake.getFeatures().size(); i++) {
+        earthquakeList.clear();
+        for (int i = 0; i < earthquake.getFeatures().size(); ++i) {
             earthquakeList.add(i, earthquake);
         }
+        Log.d(TAG, "onEarthquakeReceived: " + earthquakeList.size());
         adapter = new MainAdapter(earthquakeList, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -119,21 +124,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        newText = newText.toLowerCase();
-        LinkedList<Earthquake> newList = new LinkedList<>();
-        for (int i = 0; i < earthquakeList.size(); i++) {
-            String place = earthquakeList.element().getFeatures().get(i).getProperties().getPlace().toLowerCase();
-            if (place.contains(newText)) {
-                newList.add(earthquakeList.element());
-                Log.d(TAG, "onQueryTextChange: New List " + newList.element().getFeatures().get(i).getProperties().getPlace().toLowerCase());
-            }
-        }
-        adapter.setFilter(newList);
+        String text = newText;
+        adapter.setFilter(text);
         return true;
     }
 }

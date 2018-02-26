@@ -4,6 +4,7 @@ import com.example.rodoggx.EarthquakeEloquence.data.MainRequest;
 import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 import com.example.rodoggx.EarthquakeEloquence.utils.BaseView;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,6 +21,9 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void getEarthquakes() {
+//        Earthquake earthquake = new Earthquake();
+//        view.onEarthquakeReceived(earthquake);
+
         MainRequest.getResponse().enqueue(new Callback<Earthquake>() {
             @Override
             public void onResponse(Call<Earthquake> call, Response<Earthquake> response) {
@@ -32,6 +36,7 @@ public class MainPresenter implements MainContract.Presenter {
             }
         });
     }
+
 
     @Override
     public void attachView(MainContract.View view) {
