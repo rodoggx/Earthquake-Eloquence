@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         for (Feature feature : features) {
             featureList.add(feature);
         }
-
         adapter = new MainAdapter(featureList, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -134,8 +133,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        String text = newText;
-        adapter.setFilter(text);
-        return true;
+        adapter.setFilter(newText);
+        return false;
     }
 }

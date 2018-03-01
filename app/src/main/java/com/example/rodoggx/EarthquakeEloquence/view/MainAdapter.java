@@ -99,7 +99,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         featureList.clear();
         featureList.addAll(filteredFeatureList);
         Log.d(TAG, "setFilter: featureList " + featureList.size());
-        Log.d(TAG, "setFilter: filterdFeatureList " + filteredFeatureList.size());
+        Log.d(TAG, "setFilter: filteredFeatureList " + filteredFeatureList.size());
         notifyDataSetChanged();
     }
 }
