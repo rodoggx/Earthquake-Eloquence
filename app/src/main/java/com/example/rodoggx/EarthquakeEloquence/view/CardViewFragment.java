@@ -34,6 +34,6 @@ public class CardViewFragment extends Fragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cardView = (CardView) view.findViewById(R.id.cardview);
+        cardView = view.findViewById(R.id.cardview);
     }
 }

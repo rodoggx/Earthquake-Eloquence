@@ -9,15 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.rodoggx.EarthquakeEloquence.R;
-import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 import com.example.rodoggx.EarthquakeEloquence.model.Feature;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static android.media.CamcorderProfile.get;
 
 /**
  * Created by RodoggX on 2/13/2018.
@@ -26,13 +23,13 @@ import static android.media.CamcorderProfile.get;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
     private static final String TAG = "MainAdapter_TAG_";
-    private ArrayList<Earthquake> earthquakeList = new ArrayList<>();
-    private ArrayList<Earthquake> filteredEarthquakeList = new ArrayList<>();
+    private Context context;
+    private ArrayList<Feature> featureList = new ArrayList<>();
+    private ArrayList<Feature> filteredFeatureList = new ArrayList<>();
     private LayoutInflater inflater;
-    private int position;
 
-    public MainAdapter(ArrayList<Earthquake> earthquakeList, Context context) {
-        this.earthquakeList = earthquakeList;
+    public MainAdapter(ArrayList<Feature> featureList, Context context) {
+        this.featureList = featureList;
         inflater = LayoutInflater.from(context);
     }
 
@@ -44,39 +41,36 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
-        Earthquake earthquakeItem = earthquakeList.get(position);
-        getLocationView(holder, position, earthquakeItem);
-        getMagnitudeView(holder, position, earthquakeItem);
-        getDateView(holder, position, earthquakeItem);
-        setPosition(position);
+        Feature featureItem = featureList.get(position);
+        getLocationView(holder, featureItem);
+        getMagnitudeView(holder, featureItem);
+        getDateView(holder, featureItem);
     }
 
-    private void getDateView(MainViewHolder holder, int position, Earthquake earthquakeItem) {
-        long seconds = earthquakeItem.getFeatures().get(position).getProperties().getTime();
+    private void getDateView(MainViewHolder holder, Feature featureItem) {
+        long seconds = featureItem.getProperties().getTime();
         Date date = new Date(seconds);
         SimpleDateFormat myDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
         String javaDate = "Date: " + myDate.format(date);
         holder.dateTv.setText(javaDate);
     }
 
-    private void getMagnitudeView(MainViewHolder holder, int position, Earthquake earthquakeItem) {
-        String magnitudeText = "Magnitude: " + Double.toString(earthquakeItem.getFeatures().get(position).getProperties().getMag());
+    private void getMagnitudeView(MainViewHolder holder, Feature featureItem) {
+        String magnitudeText = "Magnitude: " + Double.toString(featureItem.getProperties().getMag());
         holder.magnitudeTv.setText(magnitudeText);
     }
 
-    private void getLocationView(MainViewHolder holder, int position, Earthquake earthquakeItem) {
-        String locationText = "Location: " + earthquakeItem.getFeatures().get(position).getProperties().getPlace();
+    private void getLocationView(MainViewHolder holder, Feature featureItem) {
+        String locationText = "Location: " + featureItem.getProperties().getPlace();
         holder.locationTv.setText(locationText);
     }
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "getItemCount: " + earthquakeList.size());
-        return earthquakeList.size();
+        return featureList.size();
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
-
         TextView locationTv;
         TextView magnitudeTv;
         TextView dateTv;
@@ -91,44 +85,21 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         }
     }
 
-    private int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     public void setFilter(String newText) {
-        Log.d(TAG, "SetFilter: New Text " + newText);
-        filteredEarthquakeList.clear();
+        filteredFeatureList.clear();
         String place;
         newText = newText.toLowerCase();
-
-        if (earthquakeList.size() == 0) {
-            Log.d(TAG, "SetFilter: List is missing elements : " + earthquakeList.size());
-        }
-        Log.d(TAG, "setFilter: position of feature " + position);
-
-        List<Feature> features = earthquakeList.get(position).getFeatures();
-        int index = 0;
+        List<Feature> features = featureList;
         for (Feature feature : features) {
             place = feature.getProperties().getPlace().toLowerCase();
             if (place.contains(newText)) {
-                Log.d(TAG, "setFilter: place " + place);
-                Log.d(TAG, "setFilter: index " + index);
-                Log.d(TAG, "setFilter: position " + position);
-                filteredEarthquakeList.add(earthquakeList.get(position));
-                Log.d(TAG, "setFilter: earthquake list index " + earthquakeList.indexOf(feature));
+                filteredFeatureList.add(feature);
             }
-            index++;
-
         }
-
-        Log.d(TAG, "setFilter: New Filtered List " + filteredEarthquakeList.size());
-        earthquakeList.clear();
-        earthquakeList.addAll(filteredEarthquakeList);
+        featureList.clear();
+        featureList.addAll(filteredFeatureList);
+        Log.d(TAG, "setFilter: featureList " + featureList.size());
+        Log.d(TAG, "setFilter: filterdFeatureList " + filteredFeatureList.size());
         notifyDataSetChanged();
     }
-
 }

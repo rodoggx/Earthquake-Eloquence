@@ -2,7 +2,6 @@ package com.example.rodoggx.EarthquakeEloquence.data;
 
 import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
 
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;

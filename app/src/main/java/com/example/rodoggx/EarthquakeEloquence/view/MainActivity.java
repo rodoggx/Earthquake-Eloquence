@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.rodoggx.EarthquakeEloquence.R;
 import com.example.rodoggx.EarthquakeEloquence.di.DaggerMainComponent;
 import com.example.rodoggx.EarthquakeEloquence.model.Earthquake;
+import com.example.rodoggx.EarthquakeEloquence.model.Feature;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,12 +38,12 @@ import static java.lang.System.getProperties;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View, SearchView.OnQueryTextListener {
 
-    private static final String TAG = "TAG_";
+    private static final String TAG = "MainActivityTAG_";
 
     @Inject
     MainPresenter presenter;
 
-    private final ArrayList<Earthquake> earthquakeList = new ArrayList<>();
+    private final ArrayList<Feature> featureList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private MainAdapter adapter;
@@ -57,8 +58,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         handleIntent(getIntent());
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.activity_main, CardViewFragment.newInstance()).commit();
+            getFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.activity_main, CardViewFragment.newInstance())
+                    .commit();
         }
     }
 
@@ -68,13 +71,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         inflater.inflate(R.menu.options_menu, menu);
 
         MenuItem menuItem = menu.findItem(search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         ComponentName componentName = getComponentName();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
-
         return true;
     }
 
@@ -84,17 +86,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void setupDaggerComponent() {
-        DaggerMainComponent.create().inject(this);
+        DaggerMainComponent
+                .create()
+                .inject(this);
     }
 
     @Override
     public void onEarthquakeReceived(Earthquake earthquake) {
-        earthquakeList.clear();
-        for (int i = 0; i < earthquake.getFeatures().size(); ++i) {
-            earthquakeList.add(i, earthquake);
+        featureList.clear();
+        List<Feature> features = earthquake.getFeatures();
+        for (Feature feature : features) {
+            featureList.add(feature);
         }
-        Log.d(TAG, "onEarthquakeReceived: " + earthquakeList.size());
-        adapter = new MainAdapter(earthquakeList, this);
+
+        adapter = new MainAdapter(featureList, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -124,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return true;
+        return false;
     }
 
     @Override

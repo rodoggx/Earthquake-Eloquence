@@ -21,8 +21,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void getEarthquakes() {
-//        Earthquake earthquake = new Earthquake();
-//        view.onEarthquakeReceived(earthquake);
 
         MainRequest.getResponse().enqueue(new Callback<Earthquake>() {
             @Override
@@ -36,7 +34,6 @@ public class MainPresenter implements MainContract.Presenter {
             }
         });
     }
-
 
     @Override
     public void attachView(MainContract.View view) {
